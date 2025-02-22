@@ -1,0 +1,77 @@
+package clinicanutricao;
+
+import javax.swing.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
+public class AgendarConsulta extends JFrame {
+    private JComboBox<Paciente> cbPacientes;
+    private JComboBox<Nutricionista> cbNutricionistas;
+    private JTextField txtData;
+    private JButton btnAgendar;
+
+    public AgendarConsulta(TelaPrincipal principal) {
+        setTitle("Agendar Consulta");
+        setLayout(null);
+
+        JLabel lblPaciente = new JLabel("Paciente:");
+        lblPaciente.setBounds(10, 10, 100, 25);
+        add(lblPaciente);
+
+        cbPacientes = new JComboBox<>();
+        cbPacientes.setBounds(120, 10, 150, 25);
+        add(cbPacientes);
+
+        JLabel lblNutricionista = new JLabel("Nutricionista:");
+        lblNutricionista.setBounds(10, 50, 100, 25);
+        add(lblNutricionista);
+
+        cbNutricionistas = new JComboBox<>();
+        cbNutricionistas.setBounds(120, 50, 150, 25);
+        add(cbNutricionistas);
+
+        JLabel lblData = new JLabel("Data:");
+        lblData.setBounds(10, 90, 100, 25);
+        add(lblData);
+
+        txtData = new JTextField();
+        txtData.setBounds(120, 90, 150, 25);
+        add(txtData);
+
+        btnAgendar = new JButton("Agendar");
+        btnAgendar.setBounds(10, 130, 100, 30);
+        add(btnAgendar);
+
+        btnAgendar.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                Paciente paciente = (Paciente) cbPacientes.getSelectedItem();
+                Nutricionista nutricionista = (Nutricionista) cbNutricionistas.getSelectedItem();
+                String data = txtData.getText();
+
+                if (paciente != null && nutricionista != null && !data.isEmpty()) {
+                    Consulta consulta = new Consulta(paciente, nutricionista, data);
+                    principal.cadastrarConsulta(consulta);
+                    JOptionPane.showMessageDialog(null, "Consulta agendada!");
+                    setVisible(false);
+                } else {
+                    JOptionPane.showMessageDialog(null, "Preencha todos os campos!");
+                }
+            }
+        });
+
+        setSize(300, 220);
+        setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
+    }
+
+    public void atualizarListas(TelaPrincipal principal) {
+        cbPacientes.removeAllItems();
+        for (Paciente p : principal.pacientes) {
+            cbPacientes.addItem(p);
+        }
+
+        cbNutricionistas.removeAllItems();
+        for (Nutricionista n : principal.nutricionistas) {
+            cbNutricionistas.addItem(n);
+        }
+    }
+}
