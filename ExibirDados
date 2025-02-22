@@ -1,0 +1,39 @@
+package clinicanutricao;
+
+import java.awt.*;
+import javax.swing.*;
+
+public class ExibirDados extends JFrame {
+    private JTextArea textArea;
+
+    public ExibirDados(TelaPrincipal principal) {
+        setTitle("Registros da Clínica");
+        setLayout(new BorderLayout());
+
+        textArea = new JTextArea();
+        textArea.setEditable(false);
+        add(new JScrollPane(textArea), BorderLayout.CENTER);
+
+        setSize(400, 300);
+        setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
+    }
+
+    public void atualizarLista(TelaPrincipal principal) {
+        textArea.setText("");
+
+        textArea.append("Pacientes:\n");
+        for (Paciente p : principal.pacientes) {
+            textArea.append("- " + p.getNome() + " (Idade: " + p.getIdade() + ")\n");
+        }
+
+        textArea.append("\nNutricionistas:\n");
+        for (Nutricionista n : principal.nutricionistas) {
+            textArea.append("- " + n.getNome() + " (Especialidade: " + n.getEspecialidade() + ")\n");
+        }
+
+        textArea.append("\nConsultas Agendadas:\n");
+        for (Consulta c : principal.consultas) {
+            textArea.append("- " + c.getPaciente().getNome() + " com " + c.getNutricionista().getNome() + " em " + c.getData() + "\n");
+        }
+    }
+}
