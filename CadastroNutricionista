@@ -1,0 +1,49 @@
+package clinicanutricao;
+
+import javax.swing.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
+public class CadastroNutricionista extends JFrame {
+    private JTextField txtNome, txtEspecialidade;
+    private JButton btnSalvar;
+
+    public CadastroNutricionista(TelaPrincipal principal) {
+        setTitle("Cadastro de Nutricionista");
+        setLayout(null);
+
+        JLabel lblNome = new JLabel("Nome:");
+        lblNome.setBounds(10, 10, 100, 25);
+        add(lblNome);
+
+        txtNome = new JTextField();
+        txtNome.setBounds(120, 10, 150, 25);
+        add(txtNome);
+
+        JLabel lblEspecialidade = new JLabel("Especialidade:");
+        lblEspecialidade.setBounds(10, 50, 100, 25);
+        add(lblEspecialidade);
+
+        txtEspecialidade = new JTextField();
+        txtEspecialidade.setBounds(120, 50, 150, 25);
+        add(txtEspecialidade);
+
+        btnSalvar = new JButton("Salvar");
+        btnSalvar.setBounds(10, 90, 100, 30);
+        add(btnSalvar);
+
+        btnSalvar.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                String nome = txtNome.getText();
+                String especialidade = txtEspecialidade.getText();
+                Nutricionista nutricionista = new Nutricionista(nome, especialidade);
+                principal.cadastrarNutricionista(nutricionista);
+                JOptionPane.showMessageDialog(null, "Nutricionista cadastrado!");
+                setVisible(false);
+            }
+        });
+
+        setSize(300, 200);
+        setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
+    }
+}
