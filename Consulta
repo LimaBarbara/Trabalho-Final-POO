@@ -1,0 +1,25 @@
+package clinicanutricao;
+
+public class Consulta {
+    private Paciente paciente;
+    private Nutricionista nutricionista;
+    private String data;
+
+    public Consulta(Paciente paciente, Nutricionista nutricionista, String data) {
+        this.paciente = paciente;
+        this.nutricionista = nutricionista;
+        this.data = data;
+    }
+
+    public Paciente getPaciente() {
+        return paciente;
+    }
+
+    public Nutricionista getNutricionista() {
+        return nutricionista;
+    }
+
+    public String getData() {
+        return data;
+    }
+}
